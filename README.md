@@ -9,7 +9,7 @@ This repository provides Homebrew formulae and casks for installing RePass Cloud
 Add the RePass Cloud tap:
 
 ```bash
-brew tap RePassCloud/tap
+brew tap repasscloud/tap
 ```
 
 Once the tap has been added, available packages can be installed normally with Homebrew.
@@ -23,7 +23,7 @@ brew install cursdel
 You can also install a package directly without manually adding the tap first:
 
 ```bash
-brew install RePassCloud/tap/cursdel
+brew install repasscloud/tap/cursdel
 ```
 
 ## Available Packages
@@ -128,7 +128,7 @@ brew uninstall --cask <application>
 To remove the RePass Cloud tap:
 
 ```bash
-brew untap RePassCloud/tap
+brew untap repasscloud/tap
 ```
 
 Removing the tap does not automatically uninstall packages that were previously installed from it.
@@ -198,8 +198,8 @@ brew reinstall cursdel
 For tap-related issues:
 
 ```bash
-brew untap RePassCloud/tap
-brew tap RePassCloud/tap
+brew untap repasscloud/tap
+brew tap repasscloud/tap
 ```
 
 Homebrew diagnostics can also be run with:
@@ -258,7 +258,7 @@ After publishing, a clean install should also be tested using the tap:
 
 ```bash
 brew uninstall cursdel
-brew tap RePassCloud/tap
+brew tap repasscloud/tap
 brew install cursdel
 cursdel --version
 ```
@@ -315,5 +315,5 @@ Formula and cask definitions in this repository are maintained solely to facilit
 This is the official Homebrew package repository for RePass Cloud software.
 
 ```bash
-brew tap RePassCloud/tap
+brew tap repasscloud/tap
 ```
