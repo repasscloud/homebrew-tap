@@ -31,7 +31,7 @@ brew install repasscloud/tap/cursdel
 ### Formulae
 
 | Package | Command | Description |
-|---|---|---|
+| --- | --- | --- |
 | `cursdel` | `cursdel` | CurseDelete secure file deletion utility |
 
 Additional RePass Cloud command-line applications will be added here as they become available.
