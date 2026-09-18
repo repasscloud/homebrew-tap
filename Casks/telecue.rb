@@ -7,7 +7,7 @@ cask "telecue" do
 
   url "https://github.com/repasscloud/telecue/releases/download/v#{version}/TeleCue-#{version}-#{arch}-apple-darwin.zip"
   name "TeleCue"
-  desc "Native macOS teleprompter with an always-on-top floating prompter window"
+  desc "Native teleprompter with an always-on-top floating prompter window"
   homepage "https://github.com/repasscloud/telecue"
 
   livecheck do
@@ -17,11 +17,13 @@ cask "telecue" do
 
   auto_updates false
 
+  depends_on macos: :sonoma
+
   app "TeleCue.app"
 
   zap trash: [
+    "~/Library/Caches/com.repasscloud.TeleCue",
     "~/Library/Preferences/com.repasscloud.TeleCue.plist",
     "~/Library/Saved Application State/com.repasscloud.TeleCue.savedState",
-    "~/Library/Caches/com.repasscloud.TeleCue",
   ]
 end
