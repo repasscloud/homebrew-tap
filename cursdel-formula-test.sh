@@ -17,7 +17,10 @@ trap restore_tap EXIT
 
 echo "==> pointing $TAP at local checkout"
 brew untap "$TAP" 2>/dev/null || true
-brew tap --custom-remote "$TAP" "$REPO_ROOT"
+# HOMEBREW_DEVELOPER skips brew's multi-arch readall check on tap, which is
+# flaky/order-dependent for macOS-only (on_macos-only) formulae and can
+# reject a perfectly valid formula with "formula requires at least a URL".
+HOMEBREW_DEVELOPER=1 brew tap --custom-remote "$TAP" "$REPO_ROOT"
 
 echo "==> brew style"
 brew style "$TAP_FORMULA"
