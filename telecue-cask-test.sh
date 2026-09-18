@@ -3,7 +3,21 @@
 set -euo pipefail
 
 CASK="telecue"
-TAP_CASK="repasscloud/tap/${CASK}"
+TAP="repasscloud/tap"
+TAP_CASK="${TAP}/${CASK}"
+TAP_REMOTE_URL="git@github.com:repasscloud/homebrew-tap.git"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+restore_tap() {
+  echo "==> restoring $TAP to normal remote"
+  brew untap "$TAP" 2>/dev/null || true
+  brew tap "$TAP" "$TAP_REMOTE_URL"
+}
+trap restore_tap EXIT
+
+echo "==> pointing $TAP at local checkout"
+brew untap "$TAP" 2>/dev/null || true
+brew tap --custom-remote "$TAP" "$REPO_ROOT"
 
 echo "==> brew style"
 brew style --cask "$TAP_CASK"
