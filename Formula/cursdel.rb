@@ -4,8 +4,6 @@ class Cursdel < Formula
   version "2.0.0"
   license "Apache-2.0"
 
-  depends_on :macos
-
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/repasscloud/cursedelete-2/releases/download/v2.0.0/cursdel-2.0.0-aarch64-apple-darwin.tar.gz"
