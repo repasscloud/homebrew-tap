@@ -11,7 +11,9 @@ echo "==> brew audit"
 brew audit --cask --online "Casks/${CASK}.rb"
 
 echo "==> brew install"
-brew install --cask "Casks/${CASK}.rb"
+# --no-quarantine: the app isn't codesigned/notarized yet, so Gatekeeper
+# would otherwise refuse to launch it.
+brew install --cask --no-quarantine "Casks/${CASK}.rb"
 
 APP="/Applications/TeleCue.app"
 
