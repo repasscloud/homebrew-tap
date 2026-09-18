@@ -36,7 +36,7 @@ if [[ ! -x "$BIN_PATH" ]]; then
 fi
 
 echo "==> verifying formula version"
-FORMULA_VERSION=$(grep -m1 '^\s*version ' "Formula/${FORMULA}.rb" | sed -E 's/.*version "([^"]+)".*/\1/')
+FORMULA_VERSION=$(grep -m1 'v[0-9]\+\.[0-9]\+\.[0-9]\+' "Formula/${FORMULA}.rb" | sed -E 's/.*v([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
 BIN_VERSION_OUTPUT="$("$BIN_PATH" --version 2>&1)"
 if [[ "$BIN_VERSION_OUTPUT" != *"$FORMULA_VERSION"* ]]; then
   echo "FAIL: formula declares $FORMULA_VERSION but binary reports: $BIN_VERSION_OUTPUT"

@@ -1,7 +1,6 @@
 class Cursdel < Formula
   desc "Fast, native, cross-platform deletion for files and directory trees"
   homepage "https://github.com/repasscloud/cursedelete-2"
-  version "2.0.0"
   license "Apache-2.0"
 
   on_macos do
