@@ -3,19 +3,23 @@
 set -euo pipefail
 
 CASK="telecue"
+TAP_CASK="repasscloud/tap/${CASK}"
 
 echo "==> brew style"
-brew style --cask "Casks/${CASK}.rb"
+brew style --cask "$TAP_CASK"
 
 echo "==> brew audit"
-brew audit --cask --online "Casks/${CASK}.rb"
+brew audit --cask --online "$TAP_CASK"
 
 echo "==> brew install"
-# --no-quarantine: the app isn't codesigned/notarized yet, so Gatekeeper
-# would otherwise refuse to launch it.
-brew install --cask --no-quarantine "Casks/${CASK}.rb"
+brew install --cask "$TAP_CASK"
 
 APP="/Applications/TeleCue.app"
+
+# The app isn't codesigned/notarized yet, so Gatekeeper would otherwise
+# refuse to launch it. Homebrew's --no-quarantine install flag no longer
+# exists, so strip the quarantine attribute manually.
+xattr -dr com.apple.quarantine "$APP" 2>/dev/null || true
 
 echo "==> verifying app is installed"
 if [[ ! -d "$APP" ]]; then

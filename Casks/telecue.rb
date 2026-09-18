@@ -16,7 +16,6 @@ cask "telecue" do
   end
 
   auto_updates false
-
   depends_on macos: :sonoma
 
   app "TeleCue.app"
