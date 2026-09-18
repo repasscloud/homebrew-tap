@@ -3,19 +3,40 @@
 set -euo pipefail
 
 CASK="telecue"
+TAP="repasscloud/tap"
+TAP_CASK="${TAP}/${CASK}"
+TAP_REMOTE_URL="git@github.com:repasscloud/homebrew-tap.git"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+restore_tap() {
+  echo "==> restoring $TAP to normal remote"
+  brew untap "$TAP" 2>/dev/null || true
+  brew tap "$TAP" "$TAP_REMOTE_URL"
+}
+trap restore_tap EXIT
+
+echo "==> pointing $TAP at local checkout"
+brew untap "$TAP" 2>/dev/null || true
+# HOMEBREW_DEVELOPER skips brew's multi-arch readall check on tap, which is
+# flaky/order-dependent for macOS-only (on_macos-only) formulae/casks and can
+# reject perfectly valid definitions with "formula requires at least a URL".
+HOMEBREW_DEVELOPER=1 brew tap --custom-remote "$TAP" "$REPO_ROOT"
 
 echo "==> brew style"
-brew style --cask "Casks/${CASK}.rb"
+brew style --cask "$TAP_CASK"
 
 echo "==> brew audit"
-brew audit --cask --online "Casks/${CASK}.rb"
+brew audit --cask --online "$TAP_CASK"
 
 echo "==> brew install"
-# --no-quarantine: the app isn't codesigned/notarized yet, so Gatekeeper
-# would otherwise refuse to launch it.
-brew install --cask --no-quarantine "Casks/${CASK}.rb"
+brew install --cask "$TAP_CASK"
 
 APP="/Applications/TeleCue.app"
+
+# The app isn't codesigned/notarized yet, so Gatekeeper would otherwise
+# refuse to launch it. Homebrew's --no-quarantine install flag no longer
+# exists, so strip the quarantine attribute manually.
+xattr -dr com.apple.quarantine "$APP" 2>/dev/null || true
 
 echo "==> verifying app is installed"
 if [[ ! -d "$APP" ]]; then

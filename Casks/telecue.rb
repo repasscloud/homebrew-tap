@@ -1,13 +1,13 @@
 cask "telecue" do
   arch arm: "aarch64", intel: "x86_64"
 
-  version "0.1.0"
-  sha256 arm:   "1620436dc55f5b99694f3a16b541a89c4d618f25aba329ed33f89f1582edb10d",
-         intel: "05d1ecc925728234767c61c2dbb3b7370739ac75f708586c72c2053e3e02f15c"
+  version "0.1.1"
+  sha256 arm:   "186a2eae71384f82a1ebb956086e9a24c9669113a54ac64a40a28ae4a1af7d5c",
+         intel: "98b1d6aa62b34c91c1d09207a92c55f92b39298ecc930627a55254456dd3e318"
 
   url "https://github.com/repasscloud/telecue/releases/download/v#{version}/TeleCue-#{version}-#{arch}-apple-darwin.zip"
   name "TeleCue"
-  desc "Native macOS teleprompter with an always-on-top floating prompter window"
+  desc "Native teleprompter with an always-on-top floating prompter window"
   homepage "https://github.com/repasscloud/telecue"
 
   livecheck do
@@ -16,12 +16,13 @@ cask "telecue" do
   end
 
   auto_updates false
+  depends_on macos: :sonoma
 
   app "TeleCue.app"
 
   zap trash: [
+    "~/Library/Caches/com.repasscloud.TeleCue",
     "~/Library/Preferences/com.repasscloud.TeleCue.plist",
     "~/Library/Saved Application State/com.repasscloud.TeleCue.savedState",
-    "~/Library/Caches/com.repasscloud.TeleCue",
   ]
 end
